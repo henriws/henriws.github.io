@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Latin+Modern+Roman&display=swap');
+.latex-text {
+    font-family: 'Latin Modern Roman', serif;
+}
+@font-face {
+  /* font-family: 'Eurostar';
+  src: url(Eurostar/eurostar.woff) format(woff);
+  font-weight: bold; */
+  font-family: 'Conthrax';
+  src: url(conthrax/Conthrax-SemiBold.otf);
+}
+.container {
+  display: grid;
+  grid-template-areas:
+    "header header"
+    /* "menu content" */
+    "footer footer";
+  grid-template-columns: 0.7fr 3.3fr;
+  gap: 2px;
+  background-color: #bbbbbb;
+  padding: 2px;
+}
+.container > div {
+  background-color: rgb(255, 255, 255);
+  padding: 5px;
+}
+.container > div.header {
+  grid-area: header;
+  text-align: center;
+}
+.container > div.menu {
+  grid-area: menu;
+}
+.container > div.content {
+  grid-area: content;
+}
+.container > div.footer {
+  grid-area: footer;
+}
+.Links {
+  font-size: 18px;
+  color: #000000;
+  font-weight: bold;
+  line-height: 1.3;
+  margin: 0px;
+  padding: 0px ;
+}
+</style>
+</head>
+<body>
+
+<section style="display: flex; justify-content: left; gap: 20px; align-items: center;">
+  <div style="text-align: center;">
+    <img src="logo_UoS.jpg" style="max-width: 300px; height: auto; margin-top: 0px; margin-bottom: 0px;">
+  </div>
+  <div style="text-align: center;">
+    <img src="doc_funds.png" style="max-width: 165px; height: auto;">
+  </div>
+  <div style="text-align: right; font-size: 11pt; line-height: 1.3;">
+    Department of Environment and Biodiversity<br>
+    Division of Geology and Physical Geography<br>
+    University of Salzburg<br>
+    5020 Salzburg<br>
+    Hellbrunnerstrasse 34/3</br>
+  </div>
+</section>
+
+<div class="container">
+  <div class="header">
+  <h2 style="text-align: center; font-family: 'Conthrax'; font-size: 18pt;">
+    <strong>Projects</strong>
+  </h2>  
+  <!-- <img src="Gemini_Generated_Image_b88yozb88yozb88y.png" style="max-width: 500px;"> -->
+  </div>
+
+  <div class="Links">
+    <a href="index.html">Home</a><br>
+    <a href="CV_HenriWS.pdf">CV</a></br>
+  </div>
+
+  <div class="MSc Thesis">
+  <h2 style="font-size: 14pt; margin: 0; padding: 0;">
+      <u>Constraining the Rates, Controls, and Spatial Distributions of Landslides in Southern Calabria, Italy</u>
+  </h2>
+  <div style="float: right; margin-bottom: 10px; margin: -50px 0 10px 15px;">
+    <!-- <img src="595318800035 copy 2.jpg" alt="Henri Stewart Wilks-Stebbings" style="max-width: 300px; height: auto;"> -->
+  </div>
+  <p style="line-height: 1.3;">
+    Calabria is recognised as one of the most seismically active and fastest uplifting regions in the 
+    Mediterranean, where landslides are the common hillslope mass-wasting process. This study presents 
+    a new multi-decadal landslide inventory for Reggio Calabria province in southern Calabria covering 
+    a 24-year period from 2000 to 2024 at 6-year intervals. The inventory includes ~1700 landslides mapped 
+    using Google Earth and WMS orthophotos, which reveal that sediment fluxes are characterised by smaller, 
+    less frequent landslides, following a power-law distribution (β = 1.7 ± 0.01). The estimation of erosion 
+    rates requires an understanding of landslides size. Here, a regionally-calibrated area-volume scaling 
+    relationship from published data is employed, translating to rates of landslide-derived erosion between 
+    0.02¬ and 0.1 ± 0.03 mm/yr. Topographic and lithological controls on landslide occurrence are investigated 
+    using slope aspect and angle, along with four main lithological units to quantify enhancement factors 
+    and frequency-density distributions. Results establish south facing slopes as facilitating larger 
+    landslide magnitudes, despite demonstrating higher Normalised Difference Vegetation Index values than 
+    north facing slopes. Peak landslides activity is concentrated on slopes between 50° and 65°, comprising
+    mostly metamorphic lithology. Landsliding also favours both carbonate and metamorphic units, with 
+    frequency-density distributions establishing power-law exponents of β = 1.8 ± 0.02 and β = 2.5 ± 0.02, 
+    respectively. Lastly, Google Earth Engine was used to compute and align annual mean precipitation with 
+    each temporal interval. Results highlight an inconclusive statistical relationship suggesting that 
+    precipitation alone cannot fully explain variations in landslide-derived erosion.
+  </p>
+  <div style="text-align: center; margin: 5px 0 10px 10px;">
+    <img src="projects/tectono_map.png" alt="Teconics adn uplift" style="max-width: 500px; height: auto;">
+  </div>
+   <div style="float: left; margin: 5px 0 10px 10px;">
+    <img src="projects/regionmap.png" alt="Geographical context" style="max-width: 285px; height: auto;">
+  </div>
+  <div style="float: right; margin: 5px 0 10px 15px;">
+    <img src="projects/landslide polygon map.png" alt="Landslide polygons" style="max-width: 290px; height: auto;">
+  </div>
+  <div style="clear: both; height: 5px;"></div>
+  <div>
+    <a href="projects/Henri_WS_MasterThesis.pdf" target="_blank">The paper.</a>
+  </div>
+  
+  <div class="MSc RP">
+    <h2 style="font-size: 14pt;">
+        <u>Landslide Frequency and Magnitude in the Southern Alps, New Zealand</u>
+    </h2>
+  </div>
+  <p style="line-height: 1.3;">
+    Mountain regions are shaped by complicated interactions between tectonics and climatic forces. 
+    Understanding the orientation of the processes influencing landslide magnitude and frequency is 
+    an important part of geomorphological research and hazard mitigation. The Southern Alps are formed
+    by dextral transpression at the Alpine Fault, where oblique convergence between the Pacific and 
+    Australian plate result in horizontal and vertical strike-slip displacement. Consequently, the 
+    orogen receives significant uplift rates, along with abundant daily and annual rainfall. This study 
+    uses Google Earth Pro and historical aerial imagery to identify and map landslides over a 70-year period. 
+    Volume-area scaling relationships establish landslide-derived erosion rates in the range 0.09–0.51 
+    mm/yr, with proximal activity concentrated within 5–10 km of the Alpine Fault. Landslides display a 
+    power-law magnitude-frequency distribution in the range 10<sup>0</sup>–10<sup>-5</sup> km<sup>-2</sup> 
+    yr<sup>-1</sup>. Power-law regressions yield a lower scaling coefficient compared to previous data, 
+    reflecting the shift to shallower landslides and the accuracy of Google Earth Pro implementation. Strong positive correlations are 
+    found between landslide-derived erosion rates and Late Quaternary throw rates (R<sup>²</sup> = 0.974, r = 0.987), 
+    indicating the first-order control of tectonics on mass wasting. Analysis of rainfall data reveals 
+    that intense, short-duration events are significant triggers for landslides, and a decrease in median 
+    landslide area since the 1960s further supports the transition from a system dominated by large, 
+    infrequent landsliding events to one characterised by smaller, more frequent events. The data reveals
+    the critical influence of Southern Alps tectonics in setting the stage for climatically driven 
+    landsliding and the implications for understanding sediment transport and connectivity in long-term 
+    landscape evolution.
+  </p>
+   <div style="float: center; margin-bottom: 10px; margin: 5px 0 10px 15px;">
+    <img src="projects/Fig. 8.png" alt="Henri Stewart Wilks-Stebbings" style="max-width: 600px; height: auto;">
+  </div>
+  <div>
+    <a href="projects/Henri_Research_Project.pdf" target="_blank">The paper.</a>
+  </div>
+</div>
+
+</body>
+</html>
