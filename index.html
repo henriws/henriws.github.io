@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Henri's Webpage</title>
     <style>
         @font-face {
@@ -16,7 +17,7 @@
             background-color: #000000;
             color: #0f0; /* body text */
             font-family: "Terminus", monospace;
-            font-size: 22px;
+            font-size: clamp(16px, 2vw, 22px);
             line-height: 1.5em;
             display: flex;
             justify-content: center;
@@ -39,6 +40,7 @@
         width: 50vw;       /* responsive size */
         height: auto;
         }
+
         .stars {
         position: fixed;
         top: 0;
@@ -62,16 +64,6 @@
         background: white;
         border-radius: 50%;
         box-shadow:
-            /* 20vw 30vh white,
-            50vw 80vh white,
-            10vw 10vh white,
-            70vw 50vh white,
-            90vw 90vh white,
-            30vw 70vh white,
-            60vw 20vh white,
-            80vw 10vh white,
-            40vw 40vh white,
-            15vw 60vh white; */
             20vw 30vh white,
             50vw 80vh white,
             10vw 10vh white,
@@ -101,6 +93,7 @@
         50% { opacity: 0.8; }
         100% { opacity: 0.3; }
         }
+
         .top-menu {
         position: absolute;      /* fixed at top */
         top: 0;
@@ -127,7 +120,7 @@
         }
 
         .container {
-            max-width: 800px;
+            max-width: 90%;
             white-space: pre; 
             text-align: left;
             z-index: 1;
@@ -156,15 +149,6 @@
             color: #0f0;
         }
 
-        /* .cursor {
-            display: inline-block;
-            width: 10px;
-            background-color: #00ffff;
-            animation: blink 1s infinite;
-            vertical-align: bottom;
-            z-index: 2;
-            position: relative;
-        } */
         .cursor {
         display: inline-block;
         width: auto;
@@ -185,6 +169,7 @@
         a:hover {
             color: #ffffff;
         }
+
         .crt-overlay {
             position: fixed;
             top: 0;
@@ -235,11 +220,7 @@
 </head>
 
 <body>
-    <!-- <section style="position: fixed; center: 0; center: 0; padding: 10px; z-index: 1000;">
-    <div>
-        <img src="portfolio webpage/earth.gif" style="max-width: 119px; height: auto;">
-    </div>
-    </section> -->
+
     <div class="stars"></div>
     <div class="background-gif">
         <img src="earth.gif" alt="Earth GIF">
