@@ -22,7 +22,7 @@
         flex-direction: column;
         justify-content: space-between; /* top menu top, ASCII bottom */
         align-items: center;
-        overflow: hidden;
+        overflow: auto;
         text-shadow: 0 0 2px rgba(138,138,138,0.8),
                      0 0 4px rgba(151,154,151,0.5);
     }
@@ -132,7 +132,7 @@
 
     .asci {
         color: #0f0;
-        font-size: 32px;
+        font-size: 32vh;
         white-space: pre;
         text-align: center;
         margin-bottom: 320px; /* spacing from bottom */
@@ -167,29 +167,6 @@
             text-shadow: 0 0 2px rgba(0,255,0,0.8),
                         0 0 4px rgba(0,255,0,0.5);
         }
-
-    /* === Mobile Fixes === */
-@media (max-width: 768px) {
-    html, body {
-        overflow: auto;            /* allow scrolling */
-        height: auto;              /* don't force full viewport height */
-    }
-
-    .asci {
-        font-size: 5vw;            /* scales ASCII art for small screens */
-        margin-bottom: 20vh;       /* adds breathing room at bottom */
-    }
-
-    .top-menu a {
-        font-size: 18px;           /* make menu readable but smaller */
-        margin: 0 10px;
-    }
-
-    .background-gif img {
-        width: 70vw;               /* prevent huge background GIF */
-        max-width: 200px;
-    }
-}
         
 </style>
 </head>
