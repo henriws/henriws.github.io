@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Henri's Projects</title>
+<style>
+    @font-face {
+        font-family: 'Terminus';
+        src: url(TerminusTTF-4.49.3.ttf) format('truetype');
+    }
+
+    html, body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #000;
+        color: #fff;
+        font-family: 'Terminus', monospace;
+        font-size: clamp(16px, 2vw, 22px);
+        line-height: 1em;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        overflow: auto;
+        text-shadow: 0 0 2px rgba(138,138,138,0.8),
+                     0 0 4px rgba(151,154,151,0.5);
+    }
+
+    .background-gif {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 0;
+        pointer-events: none;
+        opacity: 0.5;
+    }
+
+    .background-gif img {
+        max-width: 300px;
+        width: 50vw;
+        height: auto;
+    }
+
+    .stars {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: black;
+        z-index: 0;
+        pointer-events: none;
+        overflow: hidden;
+    }
+
+    .stars::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 2px;
+        height: 2px;
+        background: white;
+        border-radius: 50%;
+        box-shadow:
+            20vw 30vh white,
+            50vw 80vh white,
+            10vw 10vh white,
+            70vw 50vh white,
+            90vw 90vh white,
+            30vw 70vh white,
+            60vw 20vh white,
+            80vw 10vh white,
+            40vw 40vh white,
+            15vw 60vh white,
+            25vw 25vh white,
+            35vw 15vh white,
+            45vw 55vh white,
+            55vw 35vh white,
+            65vw 75vh white,
+            75vw 5vh white,
+            85vw 65vh white,
+            95vw 45vh white,
+            5vw 85vh white,
+            12vw 12vh white;
+        animation: twinkle 3s infinite alternate;
+    }
+
+    @keyframes twinkle {
+        0%, 50%, 100% { opacity: 0.3; }
+        25%, 75% { opacity: 0.8; }
+    }
+
+    .top-menu {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        text-align: center;
+        width: 100%;
+        padding: 10px 0;
+        z-index: 20;
+        font-family: "Terminus", monospace;
+    }
+
+    .top-menu a {
+        color: yellow;
+        font-size: 22px;
+        text-decoration: none;
+        margin: 0 20px;
+    }
+
+    .top-menu a:hover {
+        text-decoration: underline;
+    }
+
+    .container {
+        max-width: 90%;
+        white-space: pre-wrap; 
+        text-align: left;
+        z-index: 1;
+        margin-top: 60px;
+    }
+
+    /* .header {
+            text-align: center;
+            margin-bottom: 20px;
+        } */
+
+    .header span {
+        text-align: center;
+        margin-bottom: 0px;
+        color: yellow;
+        background-color: rgba(0, 0, 255, 0.584);
+        display: inline-block;
+        padding: 0 4px;
+    }
+
+    a {
+        text-decoration: underline;
+        color: inherit;
+    }
+
+    a:hover {
+        color: #fff;
+    }
+
+    /* CRT overlay */
+    .crt-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 9999;
+        background: linear-gradient(rgba(18,16,16,0) 50%, rgba(0,0,0,0.25) 50%),
+                    linear-gradient(90deg, rgba(255,0,0,0.06), rgba(0,255,0,0.02), rgba(0,0,255,0.06));
+        background-size: 100% 2px, 3px 100%;
+        animation: flicker 0.15s infinite;
+    }
+
+    @keyframes flicker {
+        0% { opacity: 0.27861; }
+        5% { opacity: 0.34769; }
+        10% { opacity: 0.23604; }
+        15% { opacity: 0.90626; }
+        20% { opacity: 0.18128; }
+        25% { opacity: 0.83891; }
+        30% { opacity: 0.65583; }
+        35% { opacity: 0.67807; }
+        40% { opacity: 0.26559; }
+        45% { opacity: 0.84693; }
+        50% { opacity: 0.96019; }
+        55% { opacity: 0.08594; }
+        60% { opacity: 0.20313; }
+        65% { opacity: 0.71988; }
+        70% { opacity: 0.53455; }
+        75% { opacity: 0.37288; }
+        80% { opacity: 0.71428; }
+        85% { opacity: 0.70419; }
+        90% { opacity: 0.7003; }
+        95% { opacity: 0.36108; }
+        100% { opacity: 0.24387; }
+    }
+
+     /* Optional subtle text glow on the whole page */
+    body, .container, .top-menu, .cursor {
+        text-shadow: 0 0 2px rgba(0,255,0,0.8),
+                    0 0 4px rgba(0,255,0,0.5);
+    }
+
+</style>
+</head>
+<body>
+
+<div class="stars"></div>
+    
+<div class="background-gif">
+    <img src="earth.gif" alt="Earth GIF">
+</div>
+
+<div class="top-menu">
+    <a href="cv.html">CV</a>
+    <a href="index.html">Home</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
+</div>
+
+<div class="container">
+    <div class="header" id="header">
+<span>Past, Present, and Future Projects</span>
+    </div>
+<p style="text-align: left; color: #0f0; margin: 5px 0; line-height: 2"><u>M.Sc</u>
+<b>The Magnitude and Frequency of Landslides in the Southern Alps, New Zealand</b>
+<i>Under the supervision of Dr. Duna Roda-Boluda</i><br>
+This project invetigated how tectonic uplift and intense rainfall shape the landscape of New Zealand's Southern Alps. By using historical orthophotos and recent satellite data, over 2,700 landslides were mapped spanning a total of 70 years, which allowed us to analyse how their frequency, size, and triggering mechanisms have evolved. The results indicate a shift from large, infrequent failures toward smaller, more frequent events, reflecting the climatic and tectonic influence on landscape evolution. The landslide data also allowed for the calculation of first order multi-decadal landslide-derived erosion rates which were compared against various environmental and geological variables.<br>
+Key findings:
+- Erosion rates in the range 0.09-0.51 mm/yr, peaking at 5-10 km from the Alpine Fault
+- Fault throw rates strongly correlate with landslide-derived erosion (R² = 0.97)
+- Short, high-intensity precipitation is believed to be a primary triggering
+- Decreases in median landslide area since the 1960s, with smaller, more infrequent landslides dominating
+
+<b>Constraining Landslide Rates, Controls, and Spatial Distributions in Southern Calabria, Italy</b>
+<i>Under the supervision of Drs. Benjamin Campforts and Duna Roda-Boluda, and PhD Candidate Amber Distelbrink</i><br>
+This project explored how rainfall patterns, topographic structure, and lithological factors influence landslide activity across Reggio Calabria province in southern Italy. A multi-temporal landslide inventory was built and derived from satelltie imagery from 2000 to 2024, where landslide frequency, magnitude, and spatial distribution were quantified under changing climatic conditions. Advanced GIS and Google Earth Engine workflows were employed to assess relationships between slope aspect, vegetation cover (NDVI), precipitation intensity, and failure mechanisms. By integrating morphometric data with climatic factors from ERA5 and Landsat vegetation data, this thesis provided an updated 
+perspective on how these Mediterranean landscapes respond to seasonal hydrometeorological forcing in a tectonically active setting.<br>
+Key findings:
+- Landslide density increases between 2012 and 2024, particularly on south- and east-facing slopes
+- Weak, fractured lithologies (particularly phyllites and schists) exhibited higher susceptibility to shallow failures compared to more coherent carbonate units.
+- Mean annual precipitation rose by up to ~25% over the 24-year period, coinciding with a higher proportion of shallow, rainfall triggered landslides
+- Vegetation recovery rates were slower on steep metamorphic terrain, suggesting a limited slope resilience
+- Volume-area scaling indicated an exponent of ~1.28 (γ), consistent with existing literature
+<p style="text-align: left; color: #0f0; margin: 5px 0; line-height: 2"><u>PhD</u>
+
+</div>
+
+<div class="crt-overlay"></div>
+
+</body>
+</html>
