@@ -222,6 +222,23 @@
         z-index: 10000;
     }
     
+    .image-row {
+        display: flex;
+        justify-content: center; /* Centers the pair on the page */
+        align-items: stretch;    /* Makes sure they try to match heights */
+        gap: 15px;               /* Space between the two images */
+        margin: 40px auto;
+        width: 90%;              /* Adjust width of the whole pair */
+        max-width: 1200px;
+    }
+
+    .image-row img {
+        display: block;
+        height: auto;
+        max-height: 400px;       /* Set a fixed max-height so they align perfectly */
+        width: auto;             /* Let width adjust based on the height */
+        border: 1px solid #0f0;  /* Optional: matching your green theme */
+    }
 </style>
 </head>
 <body>
@@ -251,15 +268,19 @@ After completing his MSc in July 2025, Henri joined the Doctoral School of Dynam
 
 </div>
 
- <div class="no-crt">
-        <img src="595318800035.jpg" alt="Henri in the field"
-             style="display:block; margin:40px auto; max-width:2500px; width:80%; height:auto;">
+<div class="no-crt">
+    <div class="image-row">
+        <img src="595318800035.jpg" alt="Henri in the field">
+        
+        <img src="me_again.jpeg" alt="Another photo of Henri">
+    </div>
 </div>
     
 <div class="crt-overlay"></div>
 
 </body>
 </html>
+
 
 
 
