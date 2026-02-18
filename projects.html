@@ -29,6 +29,16 @@
                      0 0 4px rgba(151,154,151,0.5);
     }
 
+    .header-shroud {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 80px;        /* Adjust this height to decide where the text disappears */
+        background: #000;    /* Matches your body background */
+        z-index: 15;         /* Higher than text, lower than CRT overlay */
+    }
+
     .background-gif {
         position: fixed;
         top: 50%;
@@ -235,6 +245,8 @@
 <body>
 
 <div class="stars"></div>
+
+<div class="header-shroud"></div>
     
 <div class="background-gif">
     <img src="earth.gif" alt="Earth GIF">
@@ -293,6 +305,7 @@ Projected research avenues are as follows:
 </body>
 
 </html>
+
 
 
 
