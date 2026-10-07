@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-N6XX1GYG3H"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-N6XX1GYG3H');</script>
+<title>Henri Wilks-Stebbings</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=STIX+Two+Text:ital@0;1&display=swap">
+<style>
+/* Layout: one fixed full-bleed landscape model shared by every route; content floats over it on a scrim */
+:root{
+  --bg:#0D1311; --surface:rgba(13,19,17,.86); --fg:#E4EAE6; --dim:#94A39C; --line:rgba(228,234,230,.16);
+  --accent:#7FB6F0; --warm:#E58A4E; --sed:#D9B26A;
+  --display:"Archivo","Arial Narrow",Arial,sans-serif;
+  --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  --math:"STIX Two Text","Times New Roman",serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{background:var(--bg);color:var(--fg)}
+body{font:16px/1.6 var(--body);min-height:100%}
+a{color:var(--accent);text-underline-offset:3px}
+a:hover{color:var(--fg)}
+#lem{position:fixed;inset:0;width:100%;height:100%;display:block;z-index:0;cursor:crosshair}
+.scrim{position:fixed;inset:0;background:var(--bg);opacity:0;pointer-events:none;z-index:1;transition:opacity .6s ease}
+body.content-route .scrim{opacity:.74}
+body.content-route #lem{cursor:default}
+
+/* nav */
+header.top{position:fixed;top:0;left:0;right:0;z-index:5;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;
+  padding:calc(14px + env(safe-area-inset-top,0px)) clamp(16px,3vw,32px) 14px;font:500 13px var(--mono);letter-spacing:.06em;
+  background:linear-gradient(var(--bg),rgba(13,19,17,0))}
+header.top a{color:var(--dim);text-decoration:none}
+header.top a:hover,header.top a[aria-current="page"]{color:var(--fg)}
+header.top .who{color:var(--fg)}
+header.top nav{display:flex;gap:clamp(12px,2.4vw,24px);flex-wrap:wrap}
+
+main{position:relative;z-index:2;pointer-events:none}
+main section{pointer-events:auto}
+main section.home{pointer-events:none}
+.home .hero{min-height:100svh;display:flex;flex-direction:column;padding:calc(76px + env(safe-area-inset-top,0px)) clamp(16px,3vw,32px) 16px;gap:16px}
+.home h1{font:780 clamp(40px,7.4vw,96px)/.92 var(--display);font-stretch:68%;margin:0;text-shadow:0 2px 24px rgba(0,0,0,.6);text-wrap:balance;max-width:12ch}
+.home .spacer{flex:1}
+.hudrow{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap}
+.hint{font:11.5px var(--mono);color:var(--dim)}
+.hud{font:11.5px var(--mono);background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:9px 11px;display:grid;gap:4px;font-variant-numeric:tabular-nums;min-width:210px;pointer-events:auto}
+.hud .row{display:flex;justify-content:space-between;gap:14px}
+.hud .row span:first-child{color:var(--dim)}
+.hud canvas{width:188px;height:36px;display:block;margin-top:4px}
+
+.controls{pointer-events:auto;display:flex;flex-wrap:wrap;gap:12px 20px;align-items:end;padding:14px 16px;background:var(--surface);border:1px solid var(--line);border-radius:8px;backdrop-filter:blur(6px)}
+.ctl{display:grid;gap:3px;min-width:130px;flex:1}
+.ctl label{font:500 10.5px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--dim);display:flex;justify-content:space-between;gap:8px;white-space:nowrap}
+.ctl label sub{text-transform:none}
+.ctl label output{color:var(--fg);font-variant-numeric:tabular-nums;letter-spacing:0;text-transform:none}
+input[type=range]{width:100%;accent-color:var(--accent)}
+.btnrow{display:flex;gap:6px;flex-wrap:wrap}
+button.b{font:500 12px var(--mono);padding:7px 11px;border-radius:6px;border:1px solid var(--line);background:transparent;color:var(--fg);cursor:pointer}
+button.b[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.cap{font:11.5px var(--mono);color:var(--dim)}
+
+/* documentation (small text) */
+.docs{pointer-events:auto;background:var(--surface);border-top:1px solid var(--line);padding:36px clamp(16px,3vw,32px) 56px;backdrop-filter:blur(8px)}
+.docs .inner{max-width:980px;margin:0 auto;display:grid;gap:22px;font-size:13px;line-height:1.55;color:var(--dim)}
+.docs h2{font:700 20px/1.1 var(--display);font-stretch:80%;color:var(--fg);margin:0}
+.docs h3{font:500 11px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin:0 0 6px}
+.docs p{margin:0;max-width:78ch}
+.docs .cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px 36px}
+@media (max-width:760px){.docs .cols{grid-template-columns:1fr}}
+.docs .grp{display:grid;gap:8px;min-width:0}
+.eq{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:10px;font:15px/1.4 var(--math);color:var(--fg);padding:6px 0;overflow-x:auto}
+.eq .n{font:11px var(--mono);color:var(--dim)}
+.eq i,.docs var{font-style:italic;font-family:var(--math)}
+.fr{display:inline-flex;flex-direction:column;vertical-align:middle;text-align:center;margin:0 2px;font-size:.92em}
+.fr>span:last-child{border-top:1px solid currentColor;padding-top:1px}
+.docs ul{margin:0;padding-left:18px;display:grid;gap:4px}
+.docs table{border-collapse:collapse;font:12px var(--mono);width:100%}
+.docs td,.docs th{text-align:left;padding:4px 8px 4px 0;border-bottom:1px solid var(--line);vertical-align:top}
+.docs th{color:var(--dim);font-weight:500}
+.docs td:nth-child(3){color:var(--fg);font-variant-numeric:tabular-nums}
+.tablewrap{overflow-x:auto}
+
+/* content routes */
+.page{padding:calc(96px + env(safe-area-inset-top,0px)) clamp(16px,4vw,40px) 80px;display:flex;justify-content:center}
+.page .col{max-width:760px;width:100%;display:grid;gap:26px}
+.page .eyebrow{font:500 12px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--warm)}
+.page h2{font:760 clamp(32px,5vw,54px)/1 var(--display);font-stretch:70%;margin:0;text-wrap:balance}
+.page h3{font:700 22px/1.15 var(--display);font-stretch:80%;margin:0;text-wrap:balance}
+.page p{margin:0;max-width:68ch}
+.lede{font-size:18px;color:var(--fg)}
+.block{display:grid;gap:10px;padding-top:20px;border-top:1px solid var(--line)}
+.meta{font:12.5px var(--mono);color:var(--dim)}
+.page ul{margin:0;padding-left:20px;display:grid;gap:6px}
+.find{font-variant-numeric:tabular-nums}
+.btnlink{display:inline-flex;align-items:center;gap:8px;font:500 12.5px var(--mono);padding:8px 12px;border:1px solid var(--line);border-radius:6px;text-decoration:none;color:var(--fg);width:max-content;max-width:100%}
+.btnlink:hover{border-color:var(--fg)}
+.cvgrid{display:grid;grid-template-columns:120px minmax(0,1fr);gap:8px 20px}
+.cvgrid .yr{font:12.5px var(--mono);color:var(--dim);font-variant-numeric:tabular-nums;padding-top:2px}
+@media (max-width:520px){.cvgrid{grid-template-columns:1fr;gap:2px}.cvgrid .yr{padding-top:12px}}
+.contact{display:grid;gap:6px;font:13.5px var(--mono)}
+.contact .sel{user-select:all}
+.contact .copy{margin-left:8px;padding:3px 8px;font-size:11px}
+.tools{display:flex;flex-wrap:wrap;gap:8px}
+.tools span{font:12px var(--mono);border:1px solid var(--line);border-radius:4px;padding:3px 8px}
+@media (prefers-reduced-motion:reduce){.scrim{transition:none}}
+</style>
+</head>
+<body>
+
+
+<canvas id="lem" aria-label="Live HyLands landscape evolution model"></canvas>
+<div class="scrim"></div>
+
+<header class="top">
+  <a class="who" href="#home" title="Back to the model">H. WILKS-STEBBINGS</a>
+  <nav aria-label="Main">
+    <a href="#home" data-r="home">Model</a>
+    <a href="#about" data-r="about">About</a>
+    <a href="#research" data-r="research">Research</a>
+    <a href="#code" data-r="code">Code</a>
+    <a href="#cv" data-r="cv">CV</a>
+    <a href="#contact" data-r="contact">Contact</a>
+  </nav>
+</header>
+
+<main>
+<!-- HOME -->
+<section class="home" data-route="home">
+  <div class="hero">
+    <h1>Computational geomorphologist.</h1>
+    <div class="spacer"></div>
+    <div class="hudrow">
+      <span class="hint">click the terrain: raise a crustal block</span>
+      <div class="hud">
+        <div class="row"><span>t</span><span id="hT">0 steps</span></div>
+        <div class="row"><span>mean η</span><span id="hZ">0</span></div>
+        <div class="row"><span>max relief</span><span id="hR">0</span></div>
+        <div class="row"><span>mean H</span><span id="hH">0</span></div>
+        <div class="row"><span>landslides / 100 steps</span><span id="hL">0</span></div>
+        <canvas id="hC" width="376" height="72" aria-label="Mean elevation through time"></canvas>
+      </div>
+    </div>
+    <div class="controls">
+      <div class="ctl"><label for="pU"><span>Uplift U</span><output id="oU"></output></label><input id="pU" type="range" min="0" max="0.4" step="0.01" value="0.15"></div>
+      <div class="ctl"><label for="pKr"><span>Rock K<sub>r</sub></span><output id="oKr"></output></label><input id="pKr" type="range" min="0.01" max="0.1" step="0.005" value="0.03"></div>
+      <div class="ctl"><label for="pKs"><span>Sediment K<sub>s</sub></span><output id="oKs"></output></label><input id="pKs" type="range" min="0.02" max="0.4" step="0.01" value="0.15"></div>
+      <div class="ctl"><label for="pC"><span>Cohesion C′</span><output id="oC"></output></label><input id="pC" type="range" min="1" max="30" step="1" value="8"></div>
+      <div class="ctl"><label for="pPhi"><span>Friction φ</span><output id="oPhi"></output></label><input id="pPhi" type="range" min="20" max="50" step="1" value="35"></div>
+      <div class="ctl"><label for="pP"><span>Precip. ×</span><output id="oP"></output></label><input id="pP" type="range" min="0.25" max="3" step="0.25" value="1"></div>
+      <div class="ctl"><label for="pS"><span>Speed</span><output id="oS"></output></label><input id="pS" type="range" min="1" max="60" step="1" value="8"></div>
+      <div class="btnrow" role="group" aria-label="Render mode">
+        <button class="b" data-m="relief" aria-pressed="true">Relief</button>
+        <button class="b" data-m="drain" aria-pressed="false">Drainage</button>
+        <button class="b" data-m="sed" aria-pressed="false">Sediment</button>
+        <button class="b" data-m="ls" aria-pressed="false">Landslides</button>
+      </div>
+      <div class="btnrow">
+        <button class="b" id="bRun" aria-pressed="false">Pause</button>
+        <button class="b" id="bReset">Reset to flat</button>
+      </div>
+    </div>
+    <p class="cap">HyLands-lite: SPACE fluvial erosion plus stochastic landsliding after Campforts et al. (2020). Nondimensional units, dx = 1, base level at all four edges. Documentation below.</p>
+  </div>
+
+  <div class="docs" id="docs">
+    <div class="inner">
+      <h2>Model documentation</h2>
+      <p>The landscape is a deliberately small, browser-sized reimplementation of the HyLands 1.0 hybrid landscape evolution model (Campforts et al., 2020), which couples the SPACE bedrock-alluvial river model (Shobe et al., 2017) with stochastic, Culmann-type deep-seated landsliding. Every grid cell carries bedrock elevation <var>R</var> and sediment thickness <var>H</var>; topography is <var>η</var> = <var>R</var> + <var>H</var>. Equation numbers follow the paper.</p>
+
+      <div class="cols">
+        <div class="grp">
+          <h3>Mass conservation</h3>
+          <div class="eq"><span>∂<i>η</i>/∂<i>t</i> = ∂<i>R</i>/∂<i>t</i> + ∂<i>H</i>/∂<i>t</i> = <i>U</i> − <i>E</i><sub>r,fluv</sub> + <span class="fr"><span><i>D</i><sub>s,fluv</sub> − <i>E</i><sub>s,fluv</sub></span><span>1 − <i>φ</i><sub>sed</sub></span></span> − <i>E</i><sub>r,hill</sub> + <span class="fr"><span><i>D</i><sub>s,hill</sub> − <i>E</i><sub>s,hill</sub></span><span>1 − <i>φ</i><sub>sed</sub></span></span></span><span class="n">(1)</span></div>
+          <p><var>U</var> rock uplift, <var>E</var><sub>r</sub> bedrock erosion, <var>E</var><sub>s</sub> sediment entrainment, <var>D</var><sub>s</sub> deposition, <var>φ</var><sub>sed</sub> sediment porosity. Fluvial and hillslope terms act on every cell; no channel/hillslope mask is imposed.</p>
+        </div>
+        <div class="grp">
+          <h3>Fluvial sediment flux</h3>
+          <div class="eq"><span>∂(<i>Q</i><sub>s,fluv</sub>/<i>w</i>)/∂<i>x</i> = <i>E</i><sub>s,fluv</sub> + (1 − <i>F</i><sub>f,fluv</sub>) <i>E</i><sub>r,fluv</sub> − <i>D</i><sub>s,fluv</sub></span><span class="n">(2)</span></div>
+          <p><var>F</var><sub>f</sub> is the fraction of detached bedrock lost to permanent suspension (set to 0 here, so the model is fully mass conservative).</p>
+        </div>
+        <div class="grp">
+          <h3>SPACE entrainment and incision</h3>
+          <div class="eq"><span><i>E</i><sub>s,fluv</sub> = <i>K</i><sub>s</sub> <i>q</i> <i>S</i><sup><i>n</i></sup> (1 − e<sup>−<i>H</i>/<i>H</i><sub>*</sub></sup>)</span><span class="n">(3)</span></div>
+          <div class="eq"><span><i>E</i><sub>r,fluv</sub> = <i>K</i><sub>r</sub> <i>q</i> <i>S</i><sup><i>n</i></sup> e<sup>−<i>H</i>/<i>H</i><sub>*</sub></sup></span><span class="n">(4)</span></div>
+          <p>The cover effect: as <var>H</var>/<var>H</var><sub>*</sub> grows, power shifts from incising rock to moving sediment. <var>q</var> = <var>k</var><sub>q</sub><var>A</var><sup><var>m</var></sup>, with <var>k</var><sub>q</sub> absorbed into <var>K</var>; here <var>A</var> is scaled by the precipitation slider. <var>n</var> = 1, <var>m</var> = 0.5.</p>
+        </div>
+        <div class="grp">
+          <h3>Fluvial deposition</h3>
+          <div class="eq"><span><i>D</i><sub>s,fluv</sub> = <span class="fr"><span><i>Q</i><sub>s,fluv</sub></span><span><i>Q</i></span></span> <i>V</i></span><span class="n">(5)</span></div>
+          <p><var>V</var> is the effective settling velocity; flooded cells use a larger <var>V</var><sub>lake</sub> and do not erode.</p>
+        </div>
+        <div class="grp">
+          <h3>Landslide initiation</h3>
+          <div class="eq"><span><i>θ</i><sub>c</sub> = <span class="fr"><span><i>β</i> + <i>φ</i></span><span>2</span></span></span><span class="n">(6)</span></div>
+          <div class="eq"><span><i>p</i><sub>LS</sub> = <span class="fr"><span><i>H</i><sub>s</sub></span><span><i>H</i><sub>c</sub></span></span></span><span class="n">(7)</span></div>
+          <div class="eq"><span><i>H</i><sub>c</sub> = <span class="fr"><span>4<i>C</i></span><span><i>ρg</i></span></span> <span class="fr"><span>sin <i>β</i> cos <i>φ</i></span><span>1 − cos(<i>β</i> − <i>φ</i>)</span></span></span><span class="n">(8)</span></div>
+          <div class="eq"><span><i>r</i> <span class="fr"><span>d<i>t</i></span><span><i>t</i><sub>LS</sub></span></span> &lt; <i>p</i><sub>LS</sub> → critical cell</span><span class="n">(9)</span></div>
+          <p>Cells with topographic slope <var>β</var> above the friction angle <var>φ</var> are candidates. The failure plane through a critical cell dips at <var>θ</var><sub>c</sub> (Culmann); all connected upslope cells above that plane are cut down to it, sediment first, then bedrock. The slider C′ is the lumped term 4<var>C</var>/(<var>ρg</var>) in model length units.</p>
+        </div>
+        <div class="grp">
+          <h3>Landslide runout and deposition</h3>
+          <div class="eq"><span>∂(<i>Q</i><sub>s,hill</sub>/<i>w</i>)/∂<i>x</i> = <i>E</i><sub>s,hill</sub> + (1 − <i>F</i><sub>f,hill</sub>) <i>E</i><sub>r,hill</sub> − <i>D</i><sub>s,hill</sub></span><span class="n">(10)</span></div>
+          <div class="eq"><span><i>D</i><sub>s,hill</sub> = <span class="fr"><span><i>Q</i><sub>s,hill</sub>/<i>w</i></span><span><i>L</i></span></span>, &nbsp; <i>L</i> = <span class="fr"><span>d<i>x</i></span><span>1 − (<i>S</i>/<i>S</i><sub>c</sub>)<sup>2</sup></span></span></span><span class="n">(11, 12)</span></div>
+          <p>Failed material, bulked by 1/(1 − <var>φ</var><sub>sed</sub>), is routed downslope with multiple flow directions in proportion to slope. Each cell keeps d<var>x</var>/<var>L</var> of what arrives; with <var>S</var><sub>c</sub> = tan <var>φ</var>, steep cells pass everything on and gentle cells retain most of it. A minimum deposit angle <var>δ</var> stops deposits piling above their neighbours.</p>
+        </div>
+      </div>
+
+      <div class="grp">
+        <h3>Numerical implementation and departures from HyLands 1.0</h3>
+        <ul>
+          <li>Grid of 160 × 96 cells, all edges fixed at base level, initial surface of random microtopography. The first 300 steps are fast-forwarded so a range has grown before you arrive; after that the model advances at the Speed setting (default 8 steps per second, half that on other pages).</li>
+          <li>Flow routing: depressions filled each step with an ε priority flood (Barnes et al., 2014); D8 steepest descent on the filled surface, ordered with the Braun and Willett (2013) stack. Flooded cells (receiver higher than the cell) have <var>S</var> = 0, so they do not erode and trap sediment through Eq. (5) with <var>V</var><sub>lake</sub>.</li>
+          <li>Bedrock incision (Eq. 4) is solved implicitly from base level upstream; sediment entrainment, deposition and flux (Eqs. 2, 3, 5) are then updated explicitly from the divides downstream, with entrainment capped by available sediment and half the local drop. HyLands solves SPACE following Shobe et al. (2017); this is a simplified operator split.</li>
+          <li>Eq. (9) is applied as a per-step failure probability <var>p</var><sub>LS</sub> d<var>t</var>/<var>t</var><sub>LS</sub>, so <var>t</var><sub>LS</sub> acts as a return time. <var>H</var><sub>s</sub> is taken as the height of a cell below its highest neighbour.</li>
+          <li>No hillslope diffusion: as in the HyLands experiments, hillslope relief is set by threshold landsliding alone.</li>
+          <li>Units are nondimensional and parameters are tuned for a responsive display, not calibrated to any landscape. Clicking adds a cone of rock uplift.</li>
+        </ul>
+      </div>
+
+      <div class="grp">
+        <h3>Current parameters</h3>
+        <div class="tablewrap"><table id="ptab"><thead><tr><th>Symbol</th><th>Meaning</th><th>Value</th></tr></thead><tbody></tbody></table></div>
+      </div>
+
+      <div class="grp">
+        <h3>References</h3>
+        <p>Campforts, B., Shobe, C. M., Steer, P., Vanmaercke, M., Lague, D., and Braun, J. (2020). HyLands 1.0: a hybrid landscape evolution model to simulate the impact of landslides and landslide-derived sediment on landscape evolution. <i>Geoscientific Model Development</i>, 13, 3863-3886. <a href="https://doi.org/10.5194/gmd-13-3863-2020">doi:10.5194/gmd-13-3863-2020</a></p>
+        <p>Shobe, C. M., Tucker, G. E., and Barnhart, K. R. (2017). The SPACE 1.0 model. <i>Geoscientific Model Development</i>, 10, 4577-4604.</p>
+        <p>Braun, J., and Willett, S. D. (2013). A very efficient O(n), implicit and parallel method to solve the stream power equation. <i>Geomorphology</i>, 180-181, 170-179.</p>
+        <p>Barnes, R., Lehman, C., and Mulla, D. (2014). Priority-flood: an optimal depression-filling and watershed-labeling algorithm. <i>Computers and Geosciences</i>, 62, 117-127.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="page" data-route="about" hidden>
+  <div class="col">
+    <div class="eyebrow">About</div>
+    <h2>Henri Wilks-Stebbings</h2>
+    <p class="lede">Doctoral researcher in geology at the University of Salzburg. I model how the Eastern Alps reorganise under a changing climate. The terrain behind this text is the same model running on the Model page: it keeps evolving as you read.</p>
+    <p>I work at the intersection of geomorphology, climate science and big data. My PhD, <i>Landscape response to a changing climate in the Eastern Alps: Analysing Big Data for past, present, and future conditions</i>, quantifies how the thermal, geomorphological and biological systems of the Eastern Alps are reorganising as the climate warms.</p>
+    <p>The project is part of Project 6 of AlpsChange, an FWF-funded doctoral programme based in the Division of Geology, Department of Environment and Biodiversity. I am supervised by Dr Jörg Robl and belong to the wider Landscape Evolution Modelling working group. As a computational geoscientist, I combine large geospatial datasets with quantitative and numerical methods to link past, present and projected landscape change.</p>
+    <p>Originally from England, I first became interested in Earth surface processes during my undergraduate degree in Liverpool, where a final-year focus on mass movements and landsliding under Dr Kevin Crawford set the direction of my research. I then completed an MSc in Earth Sciences at the Vrije Universiteit Amsterdam (2025), specialising in tectonic geomorphology, sedimentology and numerical geoscience under Dr Duna Roda-Boluda and Dr Benjamin Campforts. That training gave me the quantitative and computational skills that now underpin my doctoral work.</p>
+    <!-- On henriws.com, add the two photos here: 595318800035.jpg and portrait.jpg -->
+  </div>
+</section>
+
+<!-- RESEARCH -->
+<section class="page" data-route="research" hidden>
+  <div class="col">
+    <div class="eyebrow">Research</div>
+    <h2>Past, present and future projects</h2>
+
+    <div class="block">
+      <div class="meta">PhD · University of Salzburg · 2025 to 2029</div>
+      <h3>Landscape response to a changing climate in the Eastern Alps: analysing big data for past, present and future conditions</h3>
+      <div class="meta">Supervised by Dr Jörg Robl</div>
+      <p>How does the landscape of the Eastern Alps respond to a changing climate? Decades of satellite and field observations record these changes in great detail, yet how the coupled thermal, geomorphological and biological systems will evolve remains poorly constrained. This project uses geospatial and computational methods to resolve the interplay of climatic and geological factors and their imprint on the Earth's surface, using Google Earth Engine and the University of Salzburg's high-performance computing infrastructure.</p>
+      <ul>
+        <li><b>Spatio-temporal analysis of environmental change:</b> quantifying gradients from multi-source geological datasets in MATLAB, Google Earth Engine and Python</li>
+        <li><b>Erosion potential and hydrological response:</b> how changes in temperature and precipitation influence erosion and sediment transport in Alpine torrents, historically and under future climate scenarios</li>
+        <li><b>Slope stability:</b> mapping the sensitivity of Alpine landscapes to identify areas most vulnerable to failure, including a numerical model that constrains slope stress at the mountain scale</li>
+      </ul>
+    </div>
+
+    <div class="block">
+      <div class="meta">MSc thesis · Vrije Universiteit Amsterdam · 2025</div>
+      <h3>Constraining landslide rates, controls and spatial distributions in southern Calabria, Italy</h3>
+      <div class="meta">Supervised by Dr Benjamin Campforts, Dr Duna Roda-Boluda and Amber Distelbrink</div>
+      <p>How do rainfall, topography and lithology control landslide activity across Reggio Calabria? A multi-temporal inventory built from satellite imagery (2000 to 2024) quantified landslide frequency, magnitude and spatial distribution under changing climate. GIS and Google Earth Engine workflows linked failures to slope aspect, vegetation (Landsat NDVI) and precipitation intensity (ERA5).</p>
+      <ul class="find">
+        <li>Landslide density increased between 2012 and 2024, particularly on south- and east-facing slopes</li>
+        <li>Weak, fractured phyllites and schists were more susceptible to shallow failure than coherent carbonates</li>
+        <li>Mean annual precipitation rose by up to ~25% over 24 years, alongside more shallow, rainfall-triggered landslides</li>
+        <li>Slower vegetation recovery on steep metamorphic terrain suggests limited slope resilience</li>
+        <li>Volume-area scaling exponent γ ≈ 1.28, consistent with existing literature</li>
+      </ul>
+      <a class="btnlink" href="http://www.henriws.com/Henri_WS_MasterThesis.pdf">Read the thesis (PDF) ↗</a>
+    </div>
+
+    <div class="block">
+      <div class="meta">MSc research project · Vrije Universiteit Amsterdam</div>
+      <h3>The magnitude and frequency of landslides in the Southern Alps, New Zealand</h3>
+      <div class="meta">Supervised by Dr Duna Roda-Boluda</div>
+      <p>How do tectonic uplift and intense rainfall shape the Southern Alps? Historical orthophotos and recent satellite data were used to map over 2,700 landslides spanning 70 years, tracking changes in frequency, size and triggering, and deriving first-order multi-decadal landslide erosion rates.</p>
+      <ul class="find">
+        <li>Erosion rates of 0.09 to 0.51 mm/yr, peaking 5 to 10 km from the Alpine Fault</li>
+        <li>Fault throw rates strongly correlate with landslide-derived erosion (R² = 0.97)</li>
+        <li>Short, high-intensity precipitation is the likely primary trigger</li>
+        <li>Median landslide area has decreased since the 1960s, with smaller, more frequent failures dominating</li>
+      </ul>
+      <a class="btnlink" href="http://www.henriws.com/Henri_Research_Project.pdf">Read the report (PDF) ↗</a>
+    </div>
+  </div>
+</section>
+
+<!-- CODE -->
+<section class="page" data-route="code" hidden>
+  <div class="col">
+    <div class="eyebrow">Code</div>
+    <h2>Models, pipelines and this website</h2>
+    <p class="lede">The landscape behind this page is a HyLands-style landscape evolution model written in plain JavaScript: about 200 lines, no libraries, advancing at a few steps per second.</p>
+    <div class="block">
+      <h3>The model on this site</h3>
+      <ul>
+        <li>SPACE bedrock and sediment erosion (Shobe et al., 2017) with the cover effect</li>
+        <li>Stochastic Culmann landsliding and nonlocal runout deposition (Campforts et al., 2020)</li>
+        <li>Priority-flood lake filling and an O(n) implicit stream-power solver</li>
+        <li>Runs in your browser at ~6 ms per step on a 160 × 96 grid</li>
+      </ul>
+      <p>Full equations and every simplification are documented on the <a href="#docs" data-jump="docs">Model page</a>.</p>
+    </div>
+    <div class="block">
+      <h3>Toolkit</h3>
+      <div class="tools"><span>Python</span><span>PyGMT</span><span>GMT 6</span><span>MATLAB</span><span>TopoToolbox</span><span>Google Earth Engine</span><span>Linux HPC</span></div>
+      <p>Large-scale geospatial analysis runs on Google Earth Engine and the University of Salzburg HPC cluster; figures are produced with GMT and PyGMT.</p>
+    </div>
+    <!-- Add repository links here, e.g. GitHub profile and project repositories -->
+  </div>
+</section>
+
+<!-- CV -->
+<section class="page" data-route="cv" hidden>
+  <div class="col">
+    <div class="eyebrow">Curriculum vitae</div>
+    <h2>CV</h2>
+    <a class="btnlink" href="http://www.henriws.com/CV_Henri_GEOmountains.pdf">Full CV (PDF) ↗</a>
+
+    <div class="block">
+      <h3>Education</h3>
+      <div class="cvgrid">
+        <span class="yr">2025 to 2029</span><span>PhD (Dr. rer. nat.) in Geology, University of Salzburg</span>
+        <span class="yr">2023 to 2025</span><span>MSc Earth Science, Vrije Universiteit Amsterdam</span>
+        <span class="yr">2020 to 2023</span><span>BSc Physical Geography, Liverpool Hope University. First Class Honours</span>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3>Experience</h3>
+      <div class="cvgrid">
+        <span class="yr">2025 to 2029</span><span>Doctoral Researcher in Geology, University of Salzburg (AlpsChange, Project 6)</span>
+        <span class="yr">2024 to 2025</span><span>Student Assistant in Tectonic Geomorphology and Quaternary Sedimentology, Vrije Universiteit Amsterdam</span>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3>Publications</h3>
+      <ul>
+        <li><b>Towards a stress-based stability criterion for rock slopes from 3D stress modelling of entire mountain massifs.</b> Haunsperger, V., Robl, J., Hergarten, S., Argentin, A. L., Wilks-Stebbings, H., Schröder, A. In preparation.</li>
+        <li><b>Hidden erosion: quantifying carbonate mass loss in the Taugl catchment, Northern Calcareous Alps.</b> Pleyer, B., Robl, J., Dremel, F., Wilks-Stebbings, H., Tenczer, V., Otto, J. C., Hilberg, S., Rinder, T., Hauzenberger, C. In preparation.</li>
+        <li><b>Tectonic and climatic controls on valley-floor width along the Alpine Fault, New Zealand.</b> Clubb, F. J., Roda-Boluda, D. C., Wilks-Stebbings, H., de Vries, L. AGU Fall Meeting 2024, oral presentation by F. Clubb.</li>
+      </ul>
+    </div>
+
+    <div class="block">
+      <h3>Awards</h3>
+      <ul>
+        <li>Liverpool Geological Society Prize, best performing Liverpool Hope student in Physical Geography</li>
+        <li>BSc First Class Honours (summa cum laude)</li>
+      </ul>
+    </div>
+  </div>
+</section>
+<!-- CONTACT -->
+<section class="page" data-route="contact" hidden>
+  <div class="col">
+    <div class="eyebrow">Contact</div>
+    <h2>Get in touch</h2>
+    <p class="lede">For collaboration, data or model questions, email is quickest.</p>
+    <div class="block">
+      <div class="cvgrid contact">
+        <span class="yr">Email</span><span><span class="sel">henristewart.wilks-stebbings@plus.ac.at</span> <button class="b copy" data-copy="henristewart.wilks-stebbings@plus.ac.at">Copy</button></span>
+        <span class="yr">LinkedIn</span><span><a href="https://linkedin.com/in/henriws">linkedin.com/in/henriws</a></span>
+        <span class="yr">Telephone</span><span class="sel">+43 (0) 662 / 8044-5479</span>
+        <span class="yr">Office</span><span class="sel">Room D-3.005, Hellbrunnerstrasse 34, 5020 Salzburg, Austria</span>
+        <span class="yr">Affiliation</span><span>Division of Geology, Department of Environment and Biodiversity, University of Salzburg</span>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<script>
+// HyLands-lite: SPACE fluvial bedrock/sediment model + stochastic Culmann landsliding
+// after Campforts et al. (2020, GMD 13, 3863-3886). Nondimensional, dx = 1.
+function makeHyLands(W, H, seed) {
+  const N = W * H;
+  const R = new Float32Array(N), Hs = new Float32Array(N), eta = new Float32Array(N);
+  const A = new Float32Array(N), Qs = new Float32Array(N), Er = new Float32Array(N);
+  const rec = new Int32Array(N), dist = new Float32Array(N);
+  const ndon = new Uint8Array(N), don = new Int32Array(N * 8), stack = new Int32Array(N), q = new Int32Array(N);
+  const isEdge = new Uint8Array(N), lsAge = new Float32Array(N); // +: scar, -: deposit (fades)
+  const mark = new Int32Array(N); let markId = 1;
+  const F = new Float32Array(N), heap = new Int32Array(N), closed = new Uint8Array(N);
+  let s = seed || 7; const rnd = () => (s = (s * 16807) % 2147483647) / 2147483647;
+  const P = {
+    U: 0.15,     // rock uplift (L/T)
+    Kr: 0.03,     // bedrock erodibility
+    Ks: 0.15,     // sediment erodibility
+    m: 0.5, n: 1,
+    Hstar: 1.0,   // bedrock roughness length scale H*
+    V: 1.0,       // effective settling velocity
+    Vlake: 4.0,   // settling velocity in flooded (lake) cells
+    phiSed: 0.3,  // sediment porosity
+    Ffl: 0.0,     // fine fraction, fluvial
+    Ffh: 0.0,     // fine fraction, hillslope
+    C: 8.0,       // lumped cohesion term 4C/(rho g), in model length units
+    phi: 35,      // internal friction angle (deg)
+    tLS: 40,      // landslide return time (steps)
+    P: 1.0,       // precipitation multiplier on discharge
+    AmaxLS: 400,  // max landslide area (cells)
+    tanDelta: 0.09, // tan of minimal deposit angle delta (~5 deg)
+    dt: 1
+  };
+  const DX = [1, 1, 0, -1, -1, -1, 0, 1], DY = [0, 1, 1, 1, 0, -1, -1, -1];
+  const DD = DX.map((d, k) => Math.hypot(d, DY[k]));
+  for (let i = 0; i < N; i++) { const x = i % W, y = (i / W) | 0; isEdge[i] = (x === 0 || y === 0 || x === W - 1 || y === H - 1) ? 1 : 0; }
+  const M = { W, H, N, R, H_: Hs, eta, A, Qs, Er, lsAge, rec, P, t: 0, nLS: 0, lsVol: 0, lsLog: [] };
+
+  M.reset = () => { for (let i = 0; i < N; i++) { R[i] = isEdge[i] ? 0 : rnd() * 2; Hs[i] = 0; eta[i] = R[i]; lsAge[i] = 0; } M.t = 0; M.nLS = 0; M.lsLog.length = 0; };
+
+  // priority-flood depression filling (lakes), Barnes et al. 2014 with epsilon
+  // improved priority flood (Barnes et al. 2014): heap for rising cells, FIFO for pit cells
+  const hk = new Float32Array(N), pitq = new Int32Array(N), NB = [];
+  function fill() {
+    closed.fill(0); let hn = 0, ph = 0, pt = 0;
+    const push = (i, key) => { let c = hn++; while (c) { const p = (c - 1) >> 1; if (hk[p] <= key) break; heap[c] = heap[p]; hk[c] = hk[p]; c = p; } heap[c] = i; hk[c] = key; };
+    for (let i = 0; i < N; i++) { F[i] = eta[i]; if (isEdge[i]) { closed[i] = 1; push(i, F[i]); } }
+    while (hn || ph < pt) {
+      let c;
+      if (ph < pt) c = pitq[ph++];
+      else { c = heap[0]; const lastI = heap[--hn], lastK = hk[hn]; let k = 0;
+        for (;;) { let l = 2 * k + 1; if (l >= hn) break; if (l + 1 < hn && hk[l + 1] < hk[l]) l++; if (hk[l] >= lastK) break; heap[k] = heap[l]; hk[k] = hk[l]; k = l; }
+        heap[k] = lastI; hk[k] = lastK; }
+      const x = c % W, y = (c / W) | 0, fc = F[c];
+      for (let k = 0; k < 8; k++) { const xx = x + DX[k], yy = y + DY[k]; if (xx < 0 || yy < 0 || xx >= W || yy >= H) continue; const j = yy * W + xx; if (closed[j]) continue; closed[j] = 1;
+        if (F[j] <= fc) { F[j] = fc + 1e-4; pitq[pt++] = j; } else push(j, F[j]); }
+    }
+  }
+  function route() {
+    fill();
+    ndon.fill(0);
+    for (let i = 0; i < N; i++) {
+      rec[i] = i; dist[i] = 1; if (isEdge[i]) continue;
+      const x = i % W, y = (i / W) | 0; let best = 0;
+      for (let k = 0; k < 8; k++) { const j = (y + DY[k]) * W + x + DX[k]; const sl = (F[i] - F[j]) / DD[k]; if (sl > best) { best = sl; rec[i] = j; dist[i] = DD[k]; } }
+    }
+    for (let i = 0; i < N; i++) { const r = rec[i]; if (r !== i) don[r * 8 + ndon[r]++] = i; }
+    let ns = 0, sp = 0;
+    for (let i = 0; i < N; i++) if (rec[i] === i) { q[sp++] = i; while (sp) { const c = q[--sp]; stack[ns++] = c; for (let k = 0; k < ndon[c]; k++) q[sp++] = don[c * 8 + k]; } }
+    A.fill(1);
+    for (let k = N - 1; k >= 0; k--) { const i = stack[k], r = rec[i]; if (r !== i) A[r] += A[i]; }
+  }
+
+  // SPACE (Eqs 1-5). Pass 1: implicit bedrock incision, downstream -> upstream.
+  // Pass 2: sediment entrainment/deposition and flux routing, upstream -> downstream.
+  function fluvial() {
+    const dt = P.dt, por = 1 - P.phiSed;
+    for (let k = 0; k < N; k++) {
+      const i = stack[k], r = rec[i];
+      Er[i] = 0; if (r === i || isEdge[i] || eta[r] >= eta[i]) continue;     // base level or flooded cell: no incision
+      const Q = P.P * A[i], f = Math.exp(-Hs[i] / P.Hstar);
+      const Fk = P.Kr * Math.pow(Q, P.m) * f * dt / dist[i];                  // Eq 4 with n = 1
+      const Rn = Math.min(R[i], (R[i] + Fk * (eta[r] - Hs[i])) / (1 + Fk));
+      Er[i] = (R[i] - Rn) / dt; R[i] = Rn; eta[i] = R[i] + Hs[i];
+    }
+    Qs.fill(0);
+    for (let k = N - 1; k >= 0; k--) {
+      const i = stack[k], r = rec[i];
+      if (r === i) continue;                                                  // edge: sediment exits domain
+      const Q = P.P * A[i];
+      const S = Math.max(0, (eta[i] - eta[r]) / dist[i]);                    // S = 0 in flooded cells
+      let Es = P.Ks * Math.pow(Q, P.m) * Math.pow(S, P.n) * (1 - Math.exp(-Hs[i] / P.Hstar)); // Eq 3
+      const Ds = Math.min(Qs[i], Qs[i] / Q * (S > 0 ? P.V : P.Vlake));       // Eq 5
+      Es = Math.min(Es, Hs[i] * por / dt, 0.5 * Math.max(0, eta[i] - eta[r]) * por / dt);
+      Hs[i] += (Ds - Es) * dt / por;                                          // Eq 1, sediment
+      eta[i] = R[i] + Hs[i];
+      Qs[r] += Math.max(0, Qs[i] + Es + (1 - P.Ffl) * Er[i] - Ds);            // Eq 2 (w = dx = 1)
+    }
+  }
+
+  // Landslides (Eqs 6-9) and MFD deposition (Eqs 10-12)
+  const phiR = () => P.phi * Math.PI / 180;
+  function landslides() {
+    const phi = phiR(), tanPhi = Math.tan(phi), cosPhi = Math.cos(phi);
+    const crit = [];
+    for (let i = 0; i < N; i++) {
+      if (isEdge[i]) continue;
+      const x = i % W, y = (i / W) | 0; let smax = 0, zhi = -1e9;
+      for (let k = 0; k < 8; k++) { const j = (y + DY[k]) * W + x + DX[k]; const sl = (eta[i] - eta[j]) / DD[k]; if (sl > smax) smax = sl; if (eta[j] > zhi) zhi = eta[j]; }
+      if (smax <= tanPhi) continue;                      // beta must exceed phi
+      const beta = Math.atan(smax);
+      const Hc = P.C * Math.sin(beta) * cosPhi / (1 - Math.cos(beta - phi)); // Eq 8
+      const hs = Math.max(0, zhi - eta[i]);              // local hillslope height
+      const pLS = hs / Hc;                               // Eq 7
+      if (rnd() < pLS * P.dt / P.tLS) crit.push([i, beta]); // Eq 9 (as probability)
+    }
+    for (const [c, beta] of crit) failure(c, beta, phi, tanPhi);
+  }
+  function failure(c, beta, phi, tanPhi) {
+    const thc = (beta + phi) / 2, tanT = Math.tan(thc); // Eq 6
+    const cx = c % W, cy = (c / W) | 0, z0 = eta[c];
+    markId++; const cells = [c]; mark[c] = markId; let head = 0;
+    const slide = [];
+    while (head < cells.length && slide.length < P.AmaxLS) {
+      const i = cells[head++]; const x = i % W, y = (i / W) | 0;
+      for (let k = 0; k < 8; k++) {
+        const xx = x + DX[k], yy = y + DY[k]; if (xx < 1 || yy < 1 || xx >= W - 1 || yy >= H - 1) continue;
+        const j = yy * W + xx; if (mark[j] === markId) continue;
+        const plane = z0 + tanT * Math.hypot(xx - cx, yy - cy);
+        if (eta[j] > plane && eta[j] >= eta[i]) { mark[j] = markId; cells.push(j); slide.push([j, plane]); }
+      }
+    }
+    if (!slide.length) return;
+    let vol = 0;
+    for (const [j, plane] of slide) {
+      let cut = eta[j] - plane;
+      const fromH = Math.min(cut, Hs[j]); Hs[j] -= fromH; cut -= fromH;  // Es,hill
+      R[j] -= cut;                                                         // Er,hill
+      vol += fromH + (1 - P.Ffh) * cut / (1 - P.phiSed);                  // bulked to sediment volume
+      eta[j] = R[j] + Hs[j]; lsAge[j] = 1;
+    }
+    M.nLS++; M.lsVol += vol; M.lsLog.push(slide.length);
+    deposit(c, vol, tanPhi);
+  }
+  // nonlocal deposition: D = (Qs/w)/L, L = dx / (1 - (S/Sc)^2), multiple flow directions
+  function deposit(c, vol, Sc) {
+    markId++; const pend = new Map(); pend.set(c, vol);
+        let guard = 0;
+    while (pend.size && guard++ < 4000) {
+      // take highest pending cell
+      let best = -1, bz = -1e9; for (const k of pend.keys()) if (eta[k] > bz) { bz = eta[k]; best = k; }
+      const v = pend.get(best); pend.delete(best);
+      if (v < 1e-4) continue;
+      if (isEdge[best]) continue;                                           // leaves domain
+      const x = best % W, y = (best / W) | 0;
+      const nb = []; let ssum = 0, smax = 0;
+      for (let k = 0; k < 8; k++) { const j = (y + DY[k]) * W + x + DX[k]; const sl = (eta[best] - eta[j]) / DD[k]; if (sl > 0) { nb.push([j, sl]); ssum += sl; if (sl > smax) smax = sl; } }
+      let frac = 1;                                                          // fraction deposited here = dx / L
+      if (nb.length) frac = smax >= Sc ? 0 : 1 - (smax / Sc) ** 2;           // Eq 12
+      let zmin = 1e9, jmin = -1; for (let k = 0; k < 8; k++) { const j = (y + DY[k]) * W + x + DX[k]; if (eta[j] < zmin) { zmin = eta[j]; jmin = j; } }
+      let dep = Math.min(v * frac, Math.max(0, zmin + P.tanDelta - eta[best]));  // delta: minimal deposit angle
+      Hs[best] += dep; eta[best] = R[best] + Hs[best]; if (lsAge[best] <= 0) lsAge[best] = -1;
+      const rest = v - dep;
+      if (rest > 1e-6) { if (nb.length) for (const [j, sl] of nb) pend.set(j, (pend.get(j) || 0) + rest * sl / ssum); else pend.set(jmin, (pend.get(jmin) || 0) + rest); }
+    }
+  }
+  M.step = () => {
+    for (let i = 0; i < N; i++) if (!isEdge[i]) { R[i] += P.U * P.dt; eta[i] = R[i] + Hs[i]; }
+    route(); fluvial(); landslides();
+    for (let i = 0; i < N; i++) if (lsAge[i] > 0) lsAge[i] = Math.max(0, lsAge[i] - 0.01); else if (lsAge[i] < 0) lsAge[i] = Math.min(0, lsAge[i] + 0.01);
+    M.t++;
+  };
+  M.raise = (gx, gy, rad, amt) => { for (let y = 1; y < H - 1; y++) for (let x = 1; x < W - 1; x++) { const d = Math.hypot(x - gx, y - gy); if (d < rad) { const i = y * W + x; R[i] += amt * (1 - d / rad); eta[i] = R[i] + Hs[i]; } } };
+  M.save = () => ({ t: M.t, R: Array.from(R, v => +v.toFixed(3)), H: Array.from(Hs, v => +v.toFixed(3)), W, H_: H });
+  M.load = o => { if (!o || o.W !== W || o.H_ !== H) return false; for (let i = 0; i < N; i++) { R[i] = o.R[i]; Hs[i] = o.H[i]; eta[i] = R[i] + Hs[i]; } M.t = o.t; return true; };
+  M.reset();
+  return M;
+}
+
+
+(function(){
+  const W=160,H=96, M=makeHyLands(W,H,11);
+  const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  try{const o=JSON.parse(sessionStorage.getItem("hylands-state")||"null");if(o)M.load(o)}catch(e){}
+  const $=id=>document.getElementById(id);
+  const cv=$("lem"),ctx=cv.getContext("2d");
+  const off=document.createElement("canvas");off.width=W;off.height=H;const octx=off.getContext("2d");const img=octx.createImageData(W,H);
+  const hex=h=>[1,3,5].map(k=>parseInt(h.slice(k,k+2),16));
+  const INK=["#141B18","#26302B","#46514B","#79847D","#B9C2BC"].map(hex);
+  const ramp=(st,v)=>{v=Math.max(0,Math.min(1,v));const n=st.length-1,p=v*n,i=Math.min(n-1,Math.floor(p)),f=p-i,a=st[i],b=st[i+1];return[a[0]+(b[0]-a[0])*f,a[1]+(b[1]-a[1])*f,a[2]+(b[2]-a[2])*f]};
+  const mix=(c,t,w)=>[c[0]+(t[0]-c[0])*w,c[1]+(t[1]-c[1])*w,c[2]+(t[2]-c[2])*w];
+  const BLUE=[79,150,230],WARM=[229,138,78],GREEN=[110,190,120],SAND=[217,178,106];
+  let mode="relief",running=true,route="home",fit={s:1,ox:0,oy:0};
+  const hist=[],lsHist=[];
+
+  function size(){const d=Math.min(2,devicePixelRatio||1);cv.width=Math.round(innerWidth*d);cv.height=Math.round(innerHeight*d);draw()}
+  function draw(){
+    const z=M.eta,N=W*H;let mx=1e-6,sum=0,hsum=0;
+    for(let i=0;i<N;i++){if(z[i]>mx)mx=z[i];sum+=z[i];hsum+=M.H_[i]}
+    const ex=4/Math.max(6,mx/10), d=img.data;
+    for(let i=0;i<N;i++){
+      const x=i%W,y=(i/W)|0;let hs=.7;
+      if(x>0&&y>0&&x<W-1&&y<H-1){const dzdx=(z[i+1]-z[i-1])*.5*ex,dzdy=(z[i+W]-z[i-W])*.5*ex;const l=Math.hypot(dzdx,dzdy,1);hs=Math.max(0,(dzdx*.5+dzdy*.5+.707)/l)}
+      let c=ramp(INK,.12+.55*z[i]/mx);c=c.map(v=>v*(.35+.95*hs));
+      const age=M.lsAge[i];
+      if(mode==="relief"){if(age>.7)c=mix(c,WARM,(age-.7)*.5)}
+      else if(mode==="drain"){const a=Math.log10(M.A[i]);if(a>1.5)c=mix(c,BLUE,Math.min(1,(a-1.5)/1.5))}
+      else if(mode==="sed"){const h=M.H_[i];if(h>0.01)c=mix(c,SAND,Math.min(1,Math.sqrt(h/3)))}
+      else {if(age>0)c=mix(c,WARM,Math.min(1,.25+age));else if(age<0)c=mix(c,GREEN,Math.min(1,.2-age*.8))}
+      d[i*4]=c[0];d[i*4+1]=c[1];d[i*4+2]=c[2];d[i*4+3]=255}
+    octx.putImageData(img,0,0);
+    const s=Math.max(cv.width/W,cv.height/H),w=W*s,h=H*s;fit={s,ox:(cv.width-w)/2,oy:(cv.height-h)/2};
+    ctx.imageSmoothingEnabled=true;ctx.imageSmoothingQuality="high";ctx.drawImage(off,fit.ox,fit.oy,w,h);
+    if(route==="home"){const g=ctx.createLinearGradient(0,0,cv.width*.6,0);g.addColorStop(0,"rgba(13,19,17,.5)");g.addColorStop(1,"rgba(13,19,17,0)");ctx.fillStyle=g;ctx.fillRect(0,0,cv.width,cv.height)}
+    hud(sum/N,mx,hsum/N);
+  }
+  function hud(mean,mx,mh){
+    if(route!=="home")return;
+    $("hT").textContent=M.t+" steps";$("hZ").textContent=mean.toFixed(1);$("hR").textContent=mx.toFixed(1);$("hH").textContent=mh.toFixed(2);
+    const n=lsHist.length;$("hL").textContent=n>1?Math.round((lsHist[n-1]-lsHist[0])/(n-1)*100):"0";
+    const hc=$("hC"),hx=hc.getContext("2d");hx.clearRect(0,0,376,72);
+    let hm=1e-6;for(const v of hist)hm=Math.max(hm,v);
+    hx.strokeStyle="rgba(228,234,230,.22)";hx.lineWidth=1;hx.beginPath();hx.moveTo(0,70);hx.lineTo(376,70);hx.stroke();
+    hx.strokeStyle="#7FB6F0";hx.lineWidth=2.5;hx.beginPath();
+    hist.forEach((v,k)=>{const X=k/399*372+2,Y=68-v/hm*62;k?hx.lineTo(X,Y):hx.moveTo(X,Y)});hx.stroke();
+  }
+  function record(){let s=0;for(let i=0;i<W*H;i++)s+=M.eta[i];hist.push(s/(W*H));if(hist.length>400)hist.shift();lsHist.push(M.nLS);if(lsHist.length>100)lsHist.shift()}
+
+  // Fast-forward the first 300 steps (uplift from a flat surface), then run at a fixed
+  // rate set by the Speed slider, independent of screen refresh rate. Off the home page: half speed.
+  let speed=8,acc=0,last=performance.now();
+  function loop(now){
+    const dts=Math.min(.25,(now-last)/1000);last=now;
+    if(running&&!document.hidden){
+      if(M.t<300){const t0=performance.now();while(performance.now()-t0<22&&M.t<300){M.step();record()}draw()}
+      else{acc+=dts*speed*(route==="home"?1:.5);let n=0;while(acc>=1&&n<4){M.step();record();acc--;n++}if(acc>4)acc=0;if(n)draw()}
+    }
+    requestAnimationFrame(loop);
+  }
+
+  // controls
+  const bind=(id,key,fmt)=>{const el=$("p"+id),o=$("o"+id);const f=()=>{M.P[key]=+el.value;o.textContent=fmt(+el.value);table()};el.addEventListener("input",f);f()};
+  bind("U","U",v=>v.toFixed(2));bind("Kr","Kr",v=>v.toFixed(3));bind("Ks","Ks",v=>v.toFixed(2));bind("C","C",v=>v.toFixed(1));bind("Phi","phi",v=>v+"°");bind("P","P",v=>v.toFixed(2));
+  {const el=$("pS"),o=$("oS"),f=()=>{speed=+el.value;o.textContent=speed+" steps/s"};el.addEventListener("input",f);f()}
+  document.querySelectorAll("[data-m]").forEach(b=>b.addEventListener("click",()=>{mode=b.dataset.m;document.querySelectorAll("[data-m]").forEach(x=>x.setAttribute("aria-pressed",x===b));draw()}));
+  const br=$("bRun"),sync=()=>{br.textContent=running?"Pause":"Run";br.setAttribute("aria-pressed",!running)};
+  br.addEventListener("click",()=>{running=!running;sync()});
+  $("bReset").addEventListener("click",()=>{M.reset();hist.length=0;lsHist.length=0;draw()});
+  cv.addEventListener("click",e=>{if(route!=="home")return;const d=cv.width/innerWidth;
+    const gx=(e.clientX*d-fit.ox)/fit.s,gy=(e.clientY*d-fit.oy)/fit.s;let mx=0;for(const v of M.eta)mx=Math.max(mx,v);
+    M.raise(gx,gy,9,Math.max(8,mx*.4));draw()});
+  function table(){const P=M.P,rows=[
+    ["U","Rock uplift rate",P.U],["K<sub>r</sub>","Bedrock erodibility",P.Kr],["K<sub>s</sub>","Sediment erodibility",P.Ks],
+    ["m, n","Discharge and slope exponents",P.m+", "+P.n],["H<sub>*</sub>","Bedrock roughness length scale",P.Hstar],
+    ["V, V<sub>lake</sub>","Effective settling velocity",P.V+", "+P.Vlake],["φ<sub>sed</sub>","Sediment porosity",P.phiSed],
+    ["F<sub>f</sub>","Fine fraction (fluvial, hillslope)",P.Ffl+", "+P.Ffh],["4C/ρg","Lumped cohesion C′",P.C],
+    ["φ","Internal friction angle",P.phi+"°"],["t<sub>LS</sub>","Landslide return time (steps)",P.tLS],
+    ["A<sub>LS,max</sub>","Maximum landslide area (cells)",P.AmaxLS],["tan δ","Minimum deposit slope",P.tanDelta],["P","Precipitation multiplier on discharge",P.P]];
+    document.querySelector("#ptab tbody").innerHTML=rows.map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td></tr>`).join("")}
+
+  // routing: one page, one model, hash routes
+  const ROUTES=["home","about","research","code","cv","contact"];
+  function go(){let h=location.hash.slice(1);let jump=null;if(h==="docs"){jump="docs";h="home"}
+    route=ROUTES.includes(h)?h:"home";
+    document.querySelectorAll("[data-route]").forEach(s=>s.hidden=s.dataset.route!==route);
+    document.querySelectorAll("header nav a").forEach(a=>{if(a.dataset.r===route)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current")});
+    document.body.classList.toggle("content-route",route!=="home");
+    if(jump)requestAnimationFrame(()=>$("docs").scrollIntoView());else scrollTo(0,0);
+    draw()}
+  document.querySelectorAll("[data-copy]").forEach(b=>b.addEventListener("click",()=>{const t=b.dataset.copy;
+    const ok=()=>{b.textContent="Copied";setTimeout(()=>b.textContent="Copy",1600)};
+    const sel=()=>{const r=document.createRange();r.selectNodeContents(b.previousElementSibling);const s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent="Selected"};
+    try{navigator.clipboard.writeText(t).then(ok,sel)}catch(e){sel()}}));
+  addEventListener("hashchange",go);
+  addEventListener("resize",size);
+  addEventListener("pagehide",()=>{try{sessionStorage.setItem("hylands-state",JSON.stringify(M.save()))}catch(e){}});
+  if(reduce){running=false;while(M.t<300)M.step()}
+  sync();size();go();requestAnimationFrame(loop);
+})();
+</script>
+
+</body>
+</html>
